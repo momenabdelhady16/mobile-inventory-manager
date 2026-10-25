@@ -26,7 +26,7 @@
                 <img src="./mobile-inventory-favicon.svg" alt="Logo" />
                 <h1 class="page-title">Mobile Inventory</h1>
             </div>
-            <button id="darkMode" class="button">
+            <button id="darkMode" class="button button--dark-mode">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="1em"
@@ -69,7 +69,7 @@
                         <label for="form-field__release-year"
                             >Release Year</label
                         >
-                        <select name="release-year" id="release-year" required>
+                        <select name="release-year" id="form-field__release-year" required>
                             <option value="" disabled selected>
                                 Choose Year
                             </option>
@@ -92,7 +92,7 @@
                         <label for="form-field__price">Price</label>
                         <input
                             id="form-field__price"
-                            type="text"
+                            type="number"
                             placeholder="$1100"
                             required
                         />
@@ -102,7 +102,7 @@
                         <label for="form-field__quantity">Quantity</label>
                         <input
                             id="form-field__quantity"
-                            type="text"
+                            type="number"
                             placeholder="5"
                             required
                         />
