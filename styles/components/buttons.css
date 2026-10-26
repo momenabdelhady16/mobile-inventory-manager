@@ -1,0 +1,11 @@
+button {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: var(--radius);
+    color: var(--color-text-white);
+    font-weight: 700;
+    cursor: pointer;
+}
