@@ -13,7 +13,7 @@ thead {
 th {
     padding: 0 0.25rem 0.5rem;
 }
-td {
+.record-td {
     padding: 0.75rem 0.25rem;
 }
 .tbody__row {
@@ -25,13 +25,15 @@ td {
             width: 48px;
             height: 28px;
         }
-        .edit-button {
+        .edit-button,
+        .done-button {
             background-color: var(--color-button-secondary);
             &:hover {
                 background-color: var(--color-button-secondary-hover);
             }
         }
-        .delete-button {
+        .delete-button,
+        .cancel-button {
             background-color: var(--color-button-danger);
             &:hover {
                 background-color: var(--color-button-danger-hover);
