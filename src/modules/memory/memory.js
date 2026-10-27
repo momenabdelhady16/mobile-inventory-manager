@@ -28,6 +28,9 @@ export async function getToMap() {
 export function readAll() {
     return [...randomMemory.entries()].map(([id, phone]) => [id, { ...phone }]);
 }
+export function readOne(key) {
+    return [key, { ...randomMemory.get(key) }];
+}
 export async function removeAll() {
     const keys = [...randomMemory.keys()];
     for (let key of keys) {
@@ -38,9 +41,6 @@ export async function removeAll() {
 export async function removeOne(key) {
     await storage.remove(`${PREFIX}${key}`);
     randomMemory.delete(key);
-}
-export function readOne(key) {
-    return [key, { ...randomMemory.get(key) }];
 }
 export function getCorrupted() {
     return [...corrupted];

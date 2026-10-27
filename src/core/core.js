@@ -1,3 +1,10 @@
-function createUUID() {
-    return crypto.randomUUID();
-}
+// const 
+// export async function createCore({}) {
+
+    
+// }
+
+// async function init() {
+
+    
+// }

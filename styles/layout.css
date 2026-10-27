@@ -51,7 +51,7 @@ header {
 main {
     border: 1px solid var(--color-border-outer);
     padding: 1.5rem;
-    height: 100dvh;
+    min-height: 100dvh;
     box-shadow:
         0px 0px 16px 8px var(--color-shadow-2),
         0px 0px 0px 0px var(--color-shadow-1);
