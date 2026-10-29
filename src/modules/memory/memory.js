@@ -1,16 +1,88 @@
 import { storage } from "./storage.js";
+import { DB } from "./storage.js";
+
 const randomMemory = new Map();
 const PREFIX = "mob-inv:";
+const PREFIXDB = "DB:mob-inv:";
 const PREFIX_LENGTH = PREFIX.length;
 const storageKeys = [];
 const corrupted = [];
-export async function upsert(ID, Data) {
-    const record = { ...Data };
-    await updateStorage(ID, record);
-    randomMemory.set(ID, record);
+
+const brandDB = [
+    "Apple",
+    "Samsung",
+    "Google",
+    "Xiaomi",
+    "Huawei",
+    "OnePlus",
+    "Oppo",
+];
+const modelDB = [
+    {
+        Apple: [
+            "Iphone 17",
+            "Iphone 17 Pro",
+            "Iphone 17 Pro Max",
+            "Iphone 18 Pro",
+            "Iphone 18 Pro Max",
+        ],
+    },
+    {
+        Samsung: [
+            "S22 Ultra",
+            "S23 Ultra",
+            "S24 Ultra",
+            "S25 Ultra",
+            "S26 Ultra",
+        ],
+    },
+    {
+        Google: [
+            "Pixel 8 Pro",
+            "Pixel 9 Pro",
+            "Pixel 9 Pro XL",
+            "Pixel 10 Pro",
+            "Pixel 10 Pro XL",
+        ],
+    },
+    { Xiaomi: ["13 Ultra", "14", "14 Ultra", "15", "15 Ultra"] },
+    {
+        Huawei: [
+            "P60 Pro",
+            "Mate 60 Pro",
+            "Pura 70 Ultra",
+            "Mate 70 Pro",
+            "Pura 80 Ultra",
+        ],
+    },
+    { OnePlus: ["10 Pro", "11", "12", "13", "15"] },
+    {
+        Oppo: [
+            "Find X6 Pro",
+            "Find X7 Ultra",
+            "Find X8",
+            "Find X8 Pro",
+            "Find X8 Ultra",
+        ],
+    },
+];
+
+export async function initMemory() {
+    await getToMap();
+    await DB.removeDB(`${PREFIXDB}brandDB`);
+    await DB.removeDB(`${PREFIXDB}modelDB`);
+    await setDataBase("brandDB", brandDB);
+    await setDataBase("modelDB", modelDB);
+    return [await getDataBase("brandDB"), await getDataBase("modelDB")];
 }
-async function updateStorage(ID, Data) {
-    await storage.set(`${PREFIX}${ID}`, JSON.stringify(Data));
+
+export async function getDataBase(DBName) {
+    const dataBase = JSON.parse(await DB.getDB(`${PREFIXDB}${DBName}`));
+    return dataBase;
+}
+
+export async function setDataBase(DBName, DBValue) {
+    await DB.setDB(`${PREFIXDB}${DBName}`, JSON.stringify(DBValue));
 }
 export async function getToMap() {
     const keys = (await storage.keys()).filter((key) => key.startsWith(PREFIX));
@@ -25,7 +97,17 @@ export async function getToMap() {
         }
     }
 }
-export function readAll() {
+async function updateStorage(ID, Data) {
+    await storage.set(`${PREFIX}${ID}`, JSON.stringify(Data));
+}
+
+export async function upsert(ID, Data) {
+    const record = { ...Data };
+    await updateStorage(ID, record);
+    randomMemory.set(ID, record);
+}
+
+export async function readAll() {
     return [...randomMemory.entries()].map(([id, phone]) => [id, { ...phone }]);
 }
 export function readOne(key) {

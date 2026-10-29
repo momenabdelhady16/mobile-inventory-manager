@@ -13,3 +13,16 @@ export const storage = {
         return Object.keys(local);
     },
 };
+export const DB = {
+    async getDB(DBName) {
+        return local.getItem(DBName);
+    },
+    async setDB(DBName, value) {
+        if (!local.getItem(DBName)) {
+            local.setItem(DBName, value);
+        }
+    },
+    async removeDB(DBName) {
+        local.removeItem(DBName);
+    },
+};
